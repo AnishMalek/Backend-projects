@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Inter', 'Segoe UI', sans-serif;
+    }
+
+    body{
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+        background:
+            linear-gradient(
+                135deg,
+                #fdfbfb 0%,
+                #ebedee 100%
+            );
+    }
+
+    .container{
+        width:100%;
+        max-width:520px;
+        padding:40px;
+        border-radius:28px;
+        background:rgba(255,255,255,0.8);
+        backdrop-filter:blur(20px);
+        -webkit-backdrop-filter:blur(20px);
+        border:1px solid rgba(255,255,255,.6);
+        box-shadow:
+            0 20px 60px rgba(0,0,0,.08);
+    }
+
+    .top-bar{
+        margin-bottom:25px;
+    }
+
+    .back-btn{
+        text-decoration:none;
+        color:#6366f1;
+        font-weight:600;
+        font-size:15px;
+    }
+
+    h1{
+        margin-bottom:8px;
+        color:#111827;
+        font-size:32px;
+    }
+
+    .subtitle{
+        color:#6b7280;
+        margin-bottom:28px;
+        font-size:15px;
+    }
+
+    form{
+        display:flex;
+        flex-direction:column;
+        gap:18px;
+    }
+
+    input,
+    select{
+        width:100%;
+        padding:16px;
+        border-radius:14px;
+        border:1px solid #e5e7eb;
+        background:white;
+        font-size:15px;
+        transition:.3s;
+    }
+
+    input:focus,
+    select:focus{
+        outline:none;
+        border-color:#6366f1;
+        box-shadow:0 0 0 5px rgba(99,102,241,.12);
+    }
+
+    button{
+        border:none;
+        padding:16px;
+        border-radius:14px;
+        background:linear-gradient(
+            135deg,
+            #6366f1,
+            #8b5cf6
+        );
+        color:white;
+        font-size:16px;
+        font-weight:600;
+        cursor:pointer;
+        transition:.3s;
+    }
+
+    button:hover{
+        transform:translateY(-3px);
+        box-shadow:
+            0 15px 30px rgba(99,102,241,.25);
+    }
+
+    .icon{
+        font-size:42px;
+        margin-bottom:10px;
+    }
+</style>
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+    <div class="top-bar">
+        <a href="/" class="back-btn">← Back to Dashboard</a>
+    </div>
+
+
+    <h1>Add New Task</h1>
+
+    <p class="subtitle">
+        Create and organize your tasks efficiently.
+    </p>
+
+    <form action="/add" method="post">
+
+        <input
+            type="search"
+            placeholder="What needs to be done?"
+            name="task"
+            required
+        >
+
+        <select name="status">
+            <option value="pending">⏳ Pending</option>
+            <option value="completed">✅ Completed</option>
+        </select>
+
+        <button type="submit">
+            + Add Task
+        </button>
+
+    </form>
+
+</div>
+
+
+</body>
+</html>
