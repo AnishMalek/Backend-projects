@@ -1,0 +1,15 @@
+{
+  "name": "blog-management",
+  "version": "1.0.0",
+  "description": "Node.js Blog Management System using Express, EJS and Cookies",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node --watch app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}

@@ -1,0 +1,29 @@
+<%- include("../partials/header") %>
+
+<h1>Add New Blog</h1>
+
+<form action="/blogs/add" method="POST">
+    <div class="form-group">
+        <label>Blog Title</label>
+        <input type="text" name="title" placeholder="Enter blog title" required>
+    </div>
+
+    <div class="form-group">
+        <label>Author</label>
+        <input type="text" name="author" placeholder="Enter author name" required>
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" placeholder="Enter category" required>
+    </div>
+
+    <div class="form-group">
+        <label>Content</label>
+        <textarea name="content" rows="8" placeholder="Write your blog..." required></textarea>
+    </div>
+
+    <button type="submit" class="btn">Add Blog</button>
+</form>
+
+<%- include("../partials/footer") %>
