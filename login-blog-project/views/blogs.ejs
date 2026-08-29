@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blogs - Blog System</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container wide">
+        <div class="topbar">
+            <h1>Blog List</h1>
+
+            <% if (user) { %>
+                <div>
+                    <span>Welcome, <strong><%= user.username %></strong></span>
+                    <a class="btn" href="/add-blog">Add Blog</a>
+                    <a class="btn danger" href="/logout">Logout</a>
+                </div>
+            <% } else { %>
+                <a class="btn" href="/login">Login</a>
+            <% } %>
+        </div>
+
+        <hr>
+
+        <% if (blogs.length === 0) { %>
+            <p>No blogs available. Login and create your first blog.</p>
+        <% } %>
+
+        <% blogs.forEach(blog => { %>
+            <article class="blog-card">
+                <h2><%= blog.title %></h2>
+                <p><%= blog.description %></p>
+
+                <small>
+                    Created by:
+                    <%= blog.createdBy ? blog.createdBy.username : "Unknown User" %>
+                </small>
+
+                <% if (user && blog.createdBy && blog.createdBy._id.toString() === user._id.toString()) { %>
+                    <div class="actions">
+                        <a class="btn" href="/edit-blog/<%= blog._id %>">Edit</a>
+
+                        <form action="/delete-blog/<%= blog._id %>" method="POST">
+                            <button class="btn danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                <% } %>
+            </article>
+        <% }) %>
+    </div>
+</body>
+</html>
