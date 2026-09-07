@@ -1,0 +1,30 @@
+<%- include("../../partials/header") %>
+<h2><%= product ? "Edit Product" : "Add Product" %></h2>
+<form method="POST" action="<%= product ? '/admin/products/edit/' + product._id : '/admin/products/add' %>">
+<input class="form-control mb-3" name="name" placeholder="Product Name" value="<%= product ? product.name : '' %>" required>
+<select class="form-select mb-3" name="categoryId" required>
+<option value="">Select Category</option>
+<% categories.forEach(c => { 
+ const selected = product && product.categoryId.toString() === c._id.toString();
+%>
+<option value="<%= c._id %>" <%= selected ? "selected" : "" %>><%= c.name %></option>
+<% }) %>
+</select>
+<select class="form-select mb-3" name="subcategoryId" required>
+<option value="">Select Subcategory</option>
+<% subcategories.forEach(s => { 
+ const selected = product && product.subcategoryId.toString() === s._id.toString();
+%>
+<option value="<%= s._id %>" <%= selected ? "selected" : "" %>><%= s.name %> — <%= s.categoryId ? s.categoryId.name : "N/A" %></option>
+<% }) %>
+</select>
+<input class="form-control mb-3" type="number" name="price" step="0.01" min="0" placeholder="Price" value="<%= product ? product.price : '' %>" required>
+<textarea class="form-control mb-3" name="description" placeholder="Description"><%= product ? product.description : '' %></textarea>
+<select class="form-select mb-3" name="status">
+<option value="Active" <%= product && product.status === "Active" ? "selected" : "" %>>Active</option>
+<option value="Inactive" <%= product && product.status === "Inactive" ? "selected" : "" %>>Inactive</option>
+</select>
+<button class="btn btn-success"><%= product ? "Update" : "Create" %></button>
+<a class="btn btn-secondary" href="/admin/products">Cancel</a>
+</form>
+<%- include("../../partials/footer") %>

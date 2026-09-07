@@ -1,0 +1,17 @@
+<%- include("../partials/header") %>
+<div class="row">
+<div class="col-md-7">
+<div class="card p-4 shadow-sm">
+<h2>My Profile</h2>
+<form method="POST" action="/admin/profile/update">
+<label class="form-label">Name</label>
+<input class="form-control mb-3" name="name" value="<%= profile.name %>" required>
+<label class="form-label">Email</label>
+<input class="form-control mb-3" type="email" name="email" value="<%= profile.email %>" required>
+<label class="form-label">Phone</label>
+<input class="form-control mb-3" name="phone" value="<%= profile.phone || '' %>">
+<button class="btn btn-primary">Update Profile</button>
+</form>
+<a class="btn btn-outline-secondary mt-3" href="/admin/change-password">Change Password</a>
+</div></div></div>
+<%- include("../partials/footer") %>

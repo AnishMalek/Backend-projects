@@ -1,0 +1,11 @@
+<%- include("../../partials/header") %>
+<div class="d-flex justify-content-between align-items-center"><h2>Subcategories</h2><a class="btn btn-primary" href="/admin/subcategories/add">Add Subcategory</a></div>
+<table class="table table-bordered mt-3"><thead><tr><th>Name</th><th>Category (populate)</th><th>Description</th><th>Actions</th></tr></thead><tbody>
+<% subcategories.forEach(s => { %>
+<tr><td><%= s.name %></td><td><%= s.categoryId ? s.categoryId.name : "N/A" %></td><td><%= s.description %></td><td>
+<a class="btn btn-sm btn-warning" href="/admin/subcategories/edit/<%= s._id %>">Edit</a>
+<a class="btn btn-sm btn-danger" href="/admin/subcategories/delete/<%= s._id %>" onclick="return confirm('Delete subcategory?')">Delete</a>
+</td></tr>
+<% }) %>
+</tbody></table>
+<%- include("../../partials/footer") %>

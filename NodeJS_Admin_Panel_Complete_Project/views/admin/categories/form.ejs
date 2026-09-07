@@ -1,0 +1,9 @@
+<%- include("../../partials/header") %>
+<h2><%= category ? "Edit Category" : "Add Category" %></h2>
+<form method="POST" action="<%= category ? '/admin/categories/edit/' + category._id : '/admin/categories/add' %>">
+<input class="form-control mb-3" name="name" placeholder="Category Name" value="<%= category ? category.name : '' %>" required>
+<textarea class="form-control mb-3" name="description" placeholder="Description"><%= category ? category.description : '' %></textarea>
+<button class="btn btn-success"><%= category ? "Update" : "Create" %></button>
+<a class="btn btn-secondary" href="/admin/categories">Cancel</a>
+</form>
+<%- include("../../partials/footer") %>

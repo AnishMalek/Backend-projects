@@ -1,0 +1,14 @@
+<%- include("../partials/header") %>
+<h1>Dashboard</h1>
+<div class="row g-3 my-3">
+  <div class="col-md-4"><div class="card p-4 stat-card"><h5>Categories</h5><h2><%= stats.categories %></h2></div></div>
+  <div class="col-md-4"><div class="card p-4 stat-card"><h5>Subcategories</h5><h2><%= stats.subcategories %></h2></div></div>
+  <div class="col-md-4"><div class="card p-4 stat-card"><h5>Products</h5><h2><%= stats.products %></h2></div></div>
+</div>
+<div class="list-group">
+<a class="list-group-item list-group-item-action" href="/admin/profile">My Profile / Change Password</a>
+<a class="list-group-item list-group-item-action" href="/admin/categories">Category CRUD</a>
+<a class="list-group-item list-group-item-action" href="/admin/subcategories">Subcategory CRUD + Populate</a>
+<a class="list-group-item list-group-item-action" href="/admin/products">Product CRUD + Populate</a>
+</div>
+<%- include("../partials/footer") %>

@@ -1,0 +1,17 @@
+<%- include("../../partials/header") %>
+<h2><%= subcategory ? "Edit Subcategory" : "Add Subcategory" %></h2>
+<form method="POST" action="<%= subcategory ? '/admin/subcategories/edit/' + subcategory._id : '/admin/subcategories/add' %>">
+<input class="form-control mb-3" name="name" placeholder="Subcategory Name" value="<%= subcategory ? subcategory.name : '' %>" required>
+<select class="form-select mb-3" name="categoryId" required>
+<option value="">Select Category</option>
+<% categories.forEach(c => { 
+  const selected = subcategory && subcategory.categoryId.toString() === c._id.toString();
+%>
+<option value="<%= c._id %>" <%= selected ? "selected" : "" %>><%= c.name %></option>
+<% }) %>
+</select>
+<textarea class="form-control mb-3" name="description" placeholder="Description"><%= subcategory ? subcategory.description : '' %></textarea>
+<button class="btn btn-success"><%= subcategory ? "Update" : "Create" %></button>
+<a class="btn btn-secondary" href="/admin/subcategories">Cancel</a>
+</form>
+<%- include("../../partials/footer") %>
