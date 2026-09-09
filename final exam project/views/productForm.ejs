@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product ? 'Edit Product' : 'Add Product' %> - ShopEasy</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include("partials/navbar") %>
+
+  <div class="form-container">
+    <div class="form-card">
+      <h2><%= product ? 'Edit Product' : 'Add New Product' %></h2>
+      <p class="form-subtitle">
+        <%= product ? 'Update your product information below' : 'Fill in the details to list a new product' %>
+      </p>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+
+      <form action="<%= product ? '/products/edit/' + product._id : '/products' %>" method="POST" class="main-form">
+        <div class="form-group">
+          <label for="name">Product Name *</label>
+          <input type="text" id="name" name="name" required value="<%= product ? product.name : '' %>" placeholder="e.g. Wireless Headphones">
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category *</label>
+          <% if (categories.length === 0) { %>
+            <div class="alert alert-danger" style="margin-top: 5px;">
+              ⚠️ No categories available. Log in as Admin (<strong>admin@example.com</strong>) to create categories on the <a href="/categories">Categories page</a>.
+            </div>
+          <% } else { %>
+            <select id="category" name="category" required class="select-input">
+              <option value="" disabled <%= !product ? 'selected' : '' %>>Select a Category</option>
+              <% categories.forEach(cat => { %>
+                <option value="<%= cat._id %>" <%= product && product.category && (product.category._id || product.category).toString() === cat._id.toString() ? 'selected' : '' %>>
+                  <%= cat.name %>
+                </option>
+              <% }) %>
+            </select>
+          <% } %>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price ($) *</label>
+          <input type="number" id="price" name="price" step="0.01" min="0" required value="<%= product ? product.price : '' %>" placeholder="29.99">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="4" placeholder="Provide a brief description of the product..."><%= product ? product.description : '' %></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary"><%= product ? 'Update Product' : 'Create Product' %></button>
+          <a href="/products/my" class="btn btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products - ShopEasy</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include("partials/navbar") %>
+
+  <main class="container">
+    <div class="header-section">
+      <div>
+        <h1>Explore Products</h1>
+        <p class="subtitle">Find great deals posted by our community</p>
+      </div>
+
+      <!-- Category Filter Form -->
+      <form action="/products" method="GET" class="filter-form">
+        <label for="category-select" class="filter-label">Filter by Category:</label>
+        <select id="category-select" name="category" onchange="this.form.submit()" class="select-input">
+          <option value="">All Categories</option>
+          <% categories.forEach(cat => { %>
+            <option value="<%= cat._id %>" <%= selectedCategory == cat._id.toString() ? 'selected' : '' %>>
+              <%= cat.name %>
+            </option>
+          <% }) %>
+        </select>
+        <% if (selectedCategory) { %>
+          <a href="/products" class="btn btn-outline btn-sm">Clear Filter</a>
+        <% } %>
+      </form>
+    </div>
+
+    <% if (products.length === 0) { %>
+      <div class="empty-state">
+        <p>📦 No products found.</p>
+        <% if (user) { %>
+          <a href="/products/new" class="btn btn-primary">Add First Product</a>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="product-grid">
+        <% products.forEach(product => { %>
+          <% 
+            const isOwner = user && (product.createdBy && product.createdBy._id.toString() === user.userId);
+            const isAdmin = user && user.role === 'admin';
+            const showActions = isOwner || isAdmin;
+          %>
+          <%- include("productItem", { product, showActions }) %>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories - ShopEasy</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include("partials/navbar") %>
+
+  <main class="container">
+    <div class="header-section">
+      <div>
+        <h1>Product Categories</h1>
+        <p class="subtitle">Browse categories or manage them (Admin feature)</p>
+      </div>
+    </div>
+
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <% if (typeof success !== 'undefined' && success) { %>
+      <div class="alert alert-success"><%= success %></div>
+    <% } %>
+
+    <% if (user && user.role === 'admin') { %>
+      <!-- Admin Add Category Form -->
+      <div class="admin-panel">
+        <h3>➕ Add New Category (Admin Only)</h3>
+        <form action="/categories" method="POST" class="inline-form">
+          <input type="text" name="name" required placeholder="Category Name (e.g. Electronics)">
+          <input type="text" name="description" placeholder="Short Description">
+          <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+      </div>
+    <% } %>
+
+    <div class="category-grid">
+      <% if (categories.length === 0) { %>
+        <div class="empty-state">
+          <p>No categories available.</p>
+        </div>
+      <% } else { %>
+        <% categories.forEach(cat => { %>
+          <div class="category-card">
+            <div class="category-info">
+              <h3>🏷️ <%= cat.name %></h3>
+              <p><%= cat.description || 'No description provided.' %></p>
+            </div>
+
+            <div class="category-actions">
+              <a href="/products?category=<%= cat._id %>" class="btn btn-outline btn-sm">View Products</a>
+
+              <% if (user && user.role === 'admin') { %>
+                <!-- Admin Edit & Delete Options -->
+                <button onclick="toggleEdit('<%= cat._id %>')" class="btn btn-secondary btn-sm">Edit</button>
+                <form action="/categories/delete/<%= cat._id %>" method="POST" style="display:inline;" onsubmit="return confirm('Delete this category?');">
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              <% } %>
+            </div>
+
+            <% if (user && user.role === 'admin') { %>
+              <!-- Hidden Inline Edit Form for Admin -->
+              <div id="edit-form-<%= cat._id %>" class="edit-category-form" style="display: none; margin-top: 15px;">
+                <form action="/categories/edit/<%= cat._id %>" method="POST" class="form-group">
+                  <input type="text" name="name" value="<%= cat.name %>" required style="margin-bottom: 8px;">
+                  <input type="text" name="description" value="<%= cat.description %>" style="margin-bottom: 8px;">
+                  <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+                  <button type="button" onclick="toggleEdit('<%= cat._id %>')" class="btn btn-outline btn-sm">Cancel</button>
+                </form>
+              </div>
+            <% } %>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </main>
+
+  <script>
+    function toggleEdit(id) {
+      const el = document.getElementById('edit-form-' + id);
+      if (el) {
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+      }
+    }
+  </script>
+</body>
+</html>
