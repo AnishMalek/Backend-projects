@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "Node.js Product API",
+    "_postman_id": "node-api-demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Products",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products"
+      }
+    },
+    {
+      "name": "Create Product",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Laptop\",\n  \"price\": 55000,\n  \"category\": \"Electronics\",\n  \"description\": \"Demo laptop\"\n}"
+        },
+        "url": "http://localhost:3000/api/products"
+      }
+    },
+    {
+      "name": "Get One Product",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:3000/api/products/PRODUCT_ID"
+      }
+    },
+    {
+      "name": "Update Product",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"price\": 50000\n}"
+        },
+        "url": "http://localhost:3000/api/products/PRODUCT_ID"
+      }
+    },
+    {
+      "name": "Delete Product",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:3000/api/products/PRODUCT_ID"
+      }
+    }
+  ]
+}
